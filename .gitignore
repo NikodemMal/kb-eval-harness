@@ -216,3 +216,32 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ============================================================
+# Projekt: kb-eval-harness
+# ============================================================
+
+# Baza wektorowa i cache przebiegów (generowane z data/, potrafią ważyć setki MB)
+.chroma/
+chroma_db/
+data/**/index/
+.cache/
+
+# Prywatne notatki. Konwencje repo są w CLAUDE.md i te commitujemy;
+# to, co opisuje mnie, a nie repo — nie.
+CLAUDE.local.md
+*.local.md
+
+# IDE
+.idea/
+.vscode/
+
+# System
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# UWAGA — świadomie NIE ignorujemy:
+#   data/brands/   marki są syntetyczne, bez nich nikt nie odtworzy wyniku
+#   data/golden/   golden dataset JEST artefaktem pracy
+#   results/       wyniki przebiegów to zapis postępu, wersjonowany celowo
