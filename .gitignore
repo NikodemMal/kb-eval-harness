@@ -221,14 +221,14 @@ __marimo__/
 # Projekt: kb-eval-harness
 # ============================================================
 
-# Baza wektorowa i cache przebiegów (generowane z data/, potrafią ważyć setki MB)
+# Vector store and run caches (generated from data/, can grow to hundreds of MB)
 .chroma/
 chroma_db/
 data/**/index/
 .cache/
 
-# Prywatne notatki. Konwencje repo są w CLAUDE.md i te commitujemy;
-# to, co opisuje mnie, a nie repo — nie.
+# Private notes. Repository conventions live in CLAUDE.md and are committed;
+# anything describing me rather than the repository is not.
 CLAUDE.local.md
 *.local.md
 
@@ -241,7 +241,7 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
-# UWAGA — świadomie NIE ignorujemy:
-#   data/brands/   marki są syntetyczne, bez nich nikt nie odtworzy wyniku
-#   data/golden/   golden dataset JEST artefaktem pracy
-#   results/       wyniki przebiegów to zapis postępu, wersjonowany celowo
+# NOTE — deliberately NOT ignored:
+#   data/brands/   brands are synthetic; without them nobody can reproduce the results
+#   data/golden/   the golden dataset IS an artefact of this work
+#   results/       run outputs are the record of progress, versioned on purpose
