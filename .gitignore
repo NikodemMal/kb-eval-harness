@@ -218,7 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # ============================================================
-# Projekt: kb-eval-harness
+# Project: kb-eval-harness
 # ============================================================
 
 # Vector store and run caches (generated from data/, can grow to hundreds of MB)

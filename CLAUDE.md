@@ -1,87 +1,92 @@
-# CLAUDE.md — jak pracujemy w tym repo
+# CLAUDE.md — how we work in this repository
 
-Ten plik czytasz najpierw. Opisuje konwencje projektu i zasady współpracy z AI.
-Prywatne notatki (jeśli istnieją) siedzą w `CLAUDE.local.md` — poza gitem.
+Read this first. It describes the project conventions and the rules for working with AI.
+Private notes, if any exist, live in `CLAUDE.local.md` — outside git.
 
 @CLAUDE.local.md
 
-## Czym jest ten projekt
+## What this project is
 
-Eval harness mierzący, jak **sposób organizacji wiedzy** wpływa na wierność faktom,
-halucynacje i uczciwe „nie wiem" w treściach generowanych przez LLM. Część praktyczna
-pracy magisterskiej, prowadzona metodologią Design Science Research — artefakt jest
-przedmiotem badania, nie tylko narzędziem.
+An eval harness measuring how the **organisation of knowledge** affects factual fidelity,
+hallucination rate and honest refusals in LLM-generated content. It is the practical part of
+a master's thesis, carried out under a Design Science Research methodology — the artefact is
+the object of study, not merely a tool.
 
-Pełne uzasadnienie osi, drabina ablacyjna i plan realizacji leżą **poza tym repo**,
-w prywatnej bibliotece „Profil" (`cele/projekty-aktywne/magisterka/`).
+The full reasoning behind the axis, the ablation ladder and the delivery plan live **outside
+this repository**, in a private knowledge library.
 
-## ⛔ Zasada nadrzędna: kod piszę SAM
+## ⛔ Overriding rule: I write the code myself
 
-**Nie generujesz kodu Pythona.** To nie jest preferencja stylistyczna — to cel projektu.
+**You do not generate Python code.** This is not a stylistic preference — it is the point of
+the project.
 
-Ta praca jest jednocześnie treningiem Pythona, bo „Python obroniony na rozmowie bez AI"
-jest kompetencją blokującą całą ścieżkę zawodową. Kod wygenerowany przez AI nie realizuje
-tego celu, nawet jeśli działa.
+This work doubles as Python training, because "Python I can defend in an interview without AI"
+is a blocking competence for the whole career path. AI-generated code does not serve that goal,
+even when it works.
 
-**Co wolno Ci robić:**
-- tłumaczyć pojęcia, biblioteki, komunikaty błędów
-- robić review napisanego przeze mnie kodu i wskazywać problemy
-- podpowiadać kierunek („tu przyda się generator zamiast listy") bez pisania implementacji
-- pisać i edytować pliki **nie-`.py`**: konfigurację, dokumentację, YAML z danymi, CI
+**What you may do:**
+- explain concepts, libraries and error messages
+- review code I have written and point out problems
+- suggest a direction ("a generator would fit better than a list here") without writing the
+  implementation
+- write and edit **non-`.py`** files: configuration, documentation, YAML data, CI
 
-**Czego nie wolno:**
-- pisać ani edytować plików `.py` — nawet „na szybko", „dla przykładu" czy „bo to trywialne"
-- podawać gotowych bloków kodu do skopiowania
+**What you may not do:**
+- write or edit `.py` files — not "quickly", not "as an example", not "because it is trivial"
+- hand over ready-made code blocks to copy
 
-Jeśli utknąłem, tłumacz mechanizm i pokaż analogiczny przykład **z dokumentacji**, nie
-gotowe rozwiązanie mojego problemu.
+When I am stuck, explain the mechanism and point to an analogous example **from the
+documentation**, not a finished solution to my problem.
 
-## Architektura — co jest stałe
+## Architecture — what is fixed
 
-- **Jeden wspólny interfejs dla wszystkich ramion** (`src/kbeval/systems/base.py`):
-  ramię dostaje zadanie, oddaje odpowiedź + metadane (tokeny, koszt). Uczciwość porównania
-  ma wynikać ze struktury kodu, nie z deklaracji.
-- **Jedno ramię = jeden plik** w `systems/`. Dołożenie ramienia nie może wymagać zmian
-  w harnessie.
-- **Ocena nie wie, które ramię ocenia.** Warstwa `eval/` operuje na odpowiedziach, nie na systemach.
-- **`data/` jest danymi, nie kodem.** Marki, kartoteka faktów, pułapki i zadania w YAML.
-- **`results/` jest wersjonowane.** Każdy przebieg zostaje w historii — to zapis postępu.
+- **One shared interface for every arm** (`src/kbeval/systems/base.py`): an arm receives a task
+  and returns an answer plus metadata (tokens, cost). The fairness of the comparison must follow
+  from the structure of the code, not from a claim about it.
+- **One arm = one file** in `systems/`. Adding an arm must not require changes to the harness.
+- **Evaluation does not know which arm it is scoring.** The `eval/` layer operates on answers,
+  not on systems.
+- **`data/` is data, not code.** Brands, fact ledger, hallucination traps and tasks live in YAML.
+- **`results/` is versioned.** Every run stays in history — it is the record of progress.
 
-## Konwencje
+## Conventions
 
-- **Język:** kod, komentarze, nazwy plików, README i commity — **po angielsku**.
-  Repo jest publiczne i czytane też poza Polską.
-- **Commity:** `typ: opis w trybie rozkazującym`, ciało wyjaśnia DLACZEGO. Szczegóły niżej.
-- **Testy:** każdy moduł w `eval/` ma test. Logika oceny bez testu jest niewiarygodna,
-  a to jest praca o wiarygodności pomiaru.
-- **Sekrety:** wyłącznie przez `.env`. Nigdy w kodzie, nigdy w YAML-u, nigdy w promptach.
-- **Dane osobowe:** marki są syntetyczne. Realne dane klientów nie wchodzą tu w żadnej formie.
+- **Language: English, everywhere, no exceptions.** Code, comments, file and directory names,
+  documentation, YAML data, commit messages, issues and pull requests. The repository is public
+  and read outside Poland. The only things that stay in their original form are proper nouns —
+  names of people, places and institutions.
+- **Commits:** `type: description in the imperative`, with the body explaining WHY. Details below.
+- **Tests:** every module in `eval/` has a test. Scoring logic without a test is not credible,
+  and this is a thesis about credible measurement.
+- **Secrets:** through `.env` only. Never in code, never in YAML, never in prompts.
+- **Personal data:** brands are synthetic. Real client data does not enter this repository in
+  any form.
 
-## Format commitów
+## Commit format
 
 ```
-typ: opis w trybie rozkazującym, do ~50 znaków
+type: description in the imperative, up to ~50 characters
 
-Ciało: dlaczego ta zmiana, nie co zmieniła (co widać w diffie).
-Zawijaj ~72 znaki.
+Body: why this change, not what it changed (the diff shows that).
+Wrap at ~72 characters.
 ```
 
-Typy: `feat` (nowa funkcja) · `fix` (naprawa) · `docs` · `test` · `refactor` ·
-`chore` (konfiguracja, zależności) · `ci` · `data` (marki, golden dataset) ·
-`exp` (przebieg eksperymentu i wyniki)
+Types: `feat` (new capability) · `fix` · `docs` · `test` · `refactor` ·
+`chore` (configuration, dependencies) · `ci` · `data` (brands, golden dataset) ·
+`exp` (experiment runs and results)
 
-Jeden commit = jedna logiczna zmiana. Nie mieszaj refaktoru z nową funkcją.
+One commit = one logical change. Do not mix a refactor with a new feature.
 
-## Rytm pracy
+## Working rhythm
 
-**Domykaj publicznie co dwa tygodnie**, nie raz na końcu: commit + aktualizacja sekcji
-Results/Roadmap w README + krótka notka „co teraz działa". Mechanizm przeciw znanej
-słabości w finalizowaniu długich zadań — domykanie ma się zdarzyć osiem razy po trochu,
-a nie raz w skali, której historycznie nie dowożę.
+**Close something publicly every two weeks**, rather than once at the end: a commit, an update
+to the Results/Roadmap section of the README, and a short note on what now works. This is a
+deliberate counter to a known weakness in finishing long tasks — closure should happen eight
+times in small pieces, not once at a scale I have historically failed to deliver.
 
-## Zakres — czego tu NIE ma
+## Scope — what is not here
 
-Świadomie poza zakresem do czasu domknięcia łańcucha oceny end-to-end:
-wariant RAG na Azure, pełna kombinatoryka warstw, więcej niż cztery ramiona,
-więcej niż jedna marka. Nie proponuj ich; jeśli uznasz, że coś z tej listy jest
-konieczne, powiedz to wprost i uzasadnij, zamiast dokładać po cichu.
+Deliberately out of scope until the end-to-end evaluation chain is closed: a RAG variant on
+Azure, the full combinatorics of layers, more than four arms, more than one brand. Do not
+propose them; if you believe something on this list has become necessary, say so explicitly
+with your reasoning instead of quietly adding it.
