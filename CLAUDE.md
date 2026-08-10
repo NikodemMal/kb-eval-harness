@@ -1,7 +1,7 @@
-# CLAUDE.md — how we work in this repository
+# CLAUDE.md - how we work in this repository
 
 Read this first. It describes the project conventions and the rules for working with AI.
-Private notes, if any exist, live in `CLAUDE.local.md` — outside git.
+Private notes, if any exist, live in `CLAUDE.local.md` - outside git.
 
 @CLAUDE.local.md
 
@@ -9,7 +9,7 @@ Private notes, if any exist, live in `CLAUDE.local.md` — outside git.
 
 An eval harness measuring how the **organisation of knowledge** affects factual fidelity,
 hallucination rate and honest refusals in LLM-generated content. It is the practical part of
-a master's thesis, carried out under a Design Science Research methodology — the artefact is
+a master's thesis, carried out under a Design Science Research methodology - the artefact is
 the object of study, not merely a tool.
 
 The full reasoning behind the axis, the ablation ladder and the delivery plan live **outside
@@ -17,7 +17,7 @@ this repository**, in a private knowledge library.
 
 ## ⛔ Overriding rule: I write the code myself
 
-**You do not generate Python code.** This is not a stylistic preference — it is the point of
+**You do not generate Python code.** This is not a stylistic preference - it is the point of
 the project.
 
 This work doubles as Python training, because "Python I can defend in an interview without AI"
@@ -32,13 +32,13 @@ even when it works.
 - write and edit **non-`.py`** files: configuration, documentation, YAML data, CI
 
 **What you may not do:**
-- write or edit `.py` files — not "quickly", not "as an example", not "because it is trivial"
+- write or edit `.py` files - not "quickly", not "as an example", not "because it is trivial"
 - hand over ready-made code blocks to copy
 
 When I am stuck, explain the mechanism and point to an analogous example **from the
 documentation**, not a finished solution to my problem.
 
-## Architecture — what is fixed
+## Architecture - what is fixed
 
 - **One shared interface for every arm** (`src/kbeval/systems/base.py`): an arm receives a task
   and returns an answer plus metadata (tokens, cost). The fairness of the comparison must follow
@@ -47,13 +47,13 @@ documentation**, not a finished solution to my problem.
 - **Evaluation does not know which arm it is scoring.** The `eval/` layer operates on answers,
   not on systems.
 - **`data/` is data, not code.** Brands, fact ledger, hallucination traps and tasks live in YAML.
-- **`results/` is versioned.** Every run stays in history — it is the record of progress.
+- **`results/` is versioned.** Every run stays in history - it is the record of progress.
 
 ## Conventions
 
 - **Language: English, everywhere, no exceptions.** Code, comments, file and directory names,
   documentation, YAML data, commit messages, issues and pull requests. The repository is public
-  and read outside Poland. The only things that stay in their original form are proper nouns —
+  and read outside Poland. The only things that stay in their original form are proper nouns -
   names of people, places and institutions.
 - **Commits:** `type: description in the imperative`, with the body explaining WHY. Details below.
 - **Tests:** every module in `eval/` has a test. Scoring logic without a test is not credible,
@@ -81,10 +81,10 @@ One commit = one logical change. Do not mix a refactor with a new feature.
 
 **Close something publicly every two weeks**, rather than once at the end: a commit, an update
 to the Results/Roadmap section of the README, and a short note on what now works. This is a
-deliberate counter to a known weakness in finishing long tasks — closure should happen eight
+deliberate counter to a known weakness in finishing long tasks - closure should happen eight
 times in small pieces, not once at a scale I have historically failed to deliver.
 
-## Scope — what is not here
+## Scope - what is not here
 
 Deliberately out of scope until the end-to-end evaluation chain is closed: a RAG variant on
 Azure, the full combinatorics of layers, more than four arms, more than one brand. Do not

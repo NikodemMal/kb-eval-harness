@@ -241,7 +241,7 @@ Thumbs.db
 desktop.ini
 .DS_Store
 
-# NOTE — deliberately NOT ignored:
+# NOTE - deliberately NOT ignored:
 #   data/brands/   brands are synthetic; without them nobody can reproduce the results
 #   data/golden/   the golden dataset IS an artefact of this work
 #   results/       run outputs are the record of progress, versioned on purpose

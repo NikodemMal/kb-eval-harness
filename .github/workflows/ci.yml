@@ -25,7 +25,7 @@ jobs:
         run: ruff format --check .
 
       - name: Tests
-        # Exit code 5 means "no tests collected" — tolerated while the suite is empty.
+        # Exit code 5 means "no tests collected" - tolerated while the suite is empty.
         # Remove this guard once tests/ has its first test.
         run: |
           pytest || [ $? -eq 5 ]
